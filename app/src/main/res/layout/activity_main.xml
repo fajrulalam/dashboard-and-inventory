@@ -1,0 +1,1259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="SpeakableTextPresentCheck">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/revenue_container"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:padding="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="5dp">
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/timeframeBelt_container"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/layout_bg"
+            android:orientation="vertical"
+            android:padding="20dp"
+            app:cardElevation="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="125dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:paddingTop="10dp"
+                    android:text="Timeframe"
+                    android:textAlignment="viewEnd"
+                    android:textSize="10dp" />
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonDaily"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#4BA0D3"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="D"
+                    android:textSize="12dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonMonthly"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:elevation="10dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="M"
+                    android:textSize="10dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonYearly"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:elevation="10dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Y"
+                    android:textSize="12dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonAlltime"
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:elevation="10dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="A"
+                    android:textSize="10dp" />
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/stockContainer"
+            android:layout_width="match_parent"
+            android:layout_height="1000dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:padding="20dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="5dp">
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginRight="10dp">
+
+
+                <TableRow android:background="#4D0277BD">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="No"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Item Name"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Sales"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Stock"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="1"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Bakso"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/sales_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Sales"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/stock_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Stock"
+
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                </TableRow>
+
+                <TableRow >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="2"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Kentang G"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/sales_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Sales"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/stock_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Stock"
+
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                </TableRow>
+
+                <TableRow >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="3"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Nasi Bungkus A"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/sales_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Sales"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/stock_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Stock"
+
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                </TableRow>
+
+                <TableRow >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="4"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Nasi Bungkus B"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/sales_4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Sales"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/stock_4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Stock"
+
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                </TableRow>
+
+                <TableRow >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="5"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Nasi Lauk"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/sales_5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Sales"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/stock_5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Stock"
+
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                </TableRow>
+
+                <TableRow >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="6"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Popmie"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/sales_6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Sales"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/stock_6"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Stock"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                </TableRow>
+                <TableRow >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="7"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Popmie"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/sales_7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Sales"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/stock_7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Stock"
+                        android:textColor="#B3000000"
+                        android:textSize="14sp"></TextView>
+
+                </TableRow>
+
+
+            </TableLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:text="Sales and Inventory"
+                android:fontFamily="@font/montserrat_bold"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="450dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+
+                <TableRow
+                    android:background="#4D0277BD">
+
+                    <TextView
+                        android:text="No"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="#B3000000"
+                        android:background="@drawable/layout_bg"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Item Name"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Sales"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Stock"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                </TableRow>
+                <TableRow
+                    >
+
+                    <TextView
+                        android:text="1"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:background="@drawable/layout_bg"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Aqua 600ml"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sales2_1"
+                        android:text="Sales"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/stock2_1"
+                        android:text="Stock"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </TableRow>
+
+                <TableRow
+                    >
+
+                    <TextView
+                        android:text="2"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:background="@drawable/layout_bg"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Coca Cola"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sales2_2"
+                        android:text="Sales"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/stock2_2"
+                        android:text="Stock"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </TableRow>
+                <TableRow
+                    >
+
+                    <TextView
+                        android:text="3"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:background="@drawable/layout_bg"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Es Kopi Durian"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sales2_3"
+                        android:text="Sales"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/stock2_3"
+                        android:text="Stock"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:text="4"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:background="@drawable/layout_bg"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Fanta"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sales2_4"
+                        android:text="Sales"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/stock2_4"
+                        android:text="Stock"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </TableRow>
+                <TableRow
+                    >
+
+                    <TextView
+                        android:text="5"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:background="@drawable/layout_bg"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Frestea"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sales2_5"
+                        android:text="Sales"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/stock2_5"
+                        android:text="Stock"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </TableRow>
+
+                <TableRow
+                   >
+
+                    <TextView
+                        android:text="6"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:background="@drawable/layout_bg"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Kopi Hitam"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sales2_6"
+                        android:text="Sales"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/stock2_6"
+                        android:text="Stock"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </TableRow>
+
+                <TableRow
+                    >
+
+                    <TextView
+                        android:text="7"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:background="@drawable/layout_bg"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Milo"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sales2_7"
+                        android:text="Sales"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/stock2_7"
+                        android:text="Stock"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </TableRow>
+
+                <TableRow
+                    >
+
+                    <TextView
+                        android:text="8"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:background="@drawable/layout_bg"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Sprite"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sales2_8"
+                        android:text="Sales"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/stock2_8"
+                        android:text="Stock"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </TableRow>
+
+                <TableRow
+                    >
+
+                    <TextView
+                        android:text="9"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:background="@drawable/layout_bg"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Teh Gelas"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sales2_9"
+                        android:text="Sales"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/stock2_9"
+                        android:text="Stock"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </TableRow>
+
+                <TableRow
+                    >
+
+                    <TextView
+                        android:text="10"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:background="@drawable/layout_bg"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:text="Teh Pucuk H"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="60dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/sales2_10"
+                        android:text="Sales"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/stock2_10"
+                        android:text="Stock"
+                        android:padding="10dp"
+                        android:textSize="14sp"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:background="@drawable/layout_bg"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="#B3000000"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </TableRow>
+
+
+
+
+
+            </TableLayout>
+
+
+
+
+        </androidx.cardview.widget.CardView>
+
+        <!--                android:background="@drawable/layout_bg"-->
+        app:cardUseCompatPadding="true"
+        app:cardElevation="4dp"
+
+        />
+
+
+    </LinearLayout>
+
+</ScrollView>
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:id="@+id/TotalHariIni"-->
+<!--        android:text="hello"-->
+<!--        android:gravity="center" />-->
+
+
+
+</RelativeLayout>
