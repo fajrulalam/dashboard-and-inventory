@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#B30277BD</color>
+    <color name="buttonSelected">#4BA0D3</color>
+    <color name="buttonNotSelected">#CCCCCC</color>
 </resources>

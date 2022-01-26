@@ -45,10 +45,13 @@
                 android:id="@+id/buttonDaily"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
-                android:backgroundTint="#4BA0D3"
+                android:backgroundTint="@color/buttonSelected"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="D"
-                android:textSize="12dp" />
+                android:textSize="12dp"
+                android:onClick="timeFrameButtonClick"
+                android:tag="day"
+                />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonMonthly"
@@ -57,7 +60,10 @@
                 android:elevation="10dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="M"
-                android:textSize="10dp" />
+                android:backgroundTint="@color/buttonNotSelected"
+                android:textSize="10dp"
+                android:onClick="timeFrameButtonClick"
+                android:tag="month"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonYearly"
@@ -66,16 +72,22 @@
                 android:elevation="10dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="Y"
-                android:textSize="12dp" />
+                android:backgroundTint="@color/buttonNotSelected"
+                android:textSize="12dp"
+                android:onClick="timeFrameButtonClick"
+                android:tag="year"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buttonAlltime"
                 android:layout_width="35dp"
                 android:layout_height="match_parent"
                 android:elevation="10dp"
+                android:backgroundTint="@color/buttonNotSelected"
                 android:fontFamily="@font/montserrat_bold"
                 android:text="A"
-                android:textSize="10dp" />
+                android:textSize="10dp"
+                android:onClick="timeFrameButtonClick"
+                android:tag="alltime"/>
 
         </LinearLayout>
 
@@ -106,6 +118,7 @@
             app:cardElevation="5dp">
 
             <TextView
+                android:id="@+id/pendapatanKapan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Pendapatan Hari ini"
@@ -118,6 +131,7 @@
                 />
 
             <TextView
+                android:id="@+id/nominalPendapatan"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Rp320.000.000"
@@ -558,7 +572,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Popmie"
+                        android:text="Siomay"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
