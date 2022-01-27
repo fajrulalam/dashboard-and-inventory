@@ -257,7 +257,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -270,7 +270,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
 
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
@@ -312,7 +312,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -325,7 +325,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
 
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
@@ -367,7 +367,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -380,7 +380,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
 
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
@@ -422,7 +422,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -435,7 +435,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
 
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
@@ -477,7 +477,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -490,7 +490,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
 
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
@@ -532,7 +532,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -545,7 +545,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -585,7 +585,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -598,7 +598,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -739,7 +739,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -752,7 +752,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
 
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
@@ -794,7 +794,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -807,7 +807,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
 
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
@@ -849,7 +849,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -862,7 +862,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
 
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
@@ -904,7 +904,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -917,7 +917,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
 
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
@@ -959,7 +959,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -972,7 +972,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
 
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
@@ -1014,7 +1014,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -1027,7 +1027,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -1068,7 +1068,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -1081,7 +1081,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -1122,7 +1122,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -1135,7 +1135,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
 
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
@@ -1177,7 +1177,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -1190,7 +1190,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -1231,7 +1231,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Sales"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -1244,7 +1244,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Stock"
+                        android:text="0"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 

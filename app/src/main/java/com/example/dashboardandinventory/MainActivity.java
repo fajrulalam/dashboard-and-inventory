@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -110,26 +111,42 @@ public class MainActivity extends AppCompatActivity {
         //Define Makanan Table
         baksoSales = findViewById(R.id.sales_1);
         baksoStock = findViewById(R.id.stock_1);
-
-        kentangSales = findViewById(R.id.sales_2);
-        kentangStock = findViewById(R.id.stock_2);
-
+            kentangSales = findViewById(R.id.sales_2);
+            kentangStock = findViewById(R.id.stock_2);
         nasbungASales = findViewById(R.id.sales_3);
         nasbungAStock = findViewById(R.id.stock_3);
-
-        nasbungBSales = findViewById(R.id.sales_4);
-        nasbungBStock = findViewById(R.id.stock_4);
-
+            nasbungBSales = findViewById(R.id.sales_4);
+            nasbungBStock = findViewById(R.id.stock_4);
         nasiLaukSales = findViewById(R.id.sales_5);
         nasiLaukStock = findViewById(R.id.stock_5);
-
-        popmieSales = findViewById(R.id.sales_6);
-        popmieStock = findViewById(R.id.stock_6);
-
+            popmieSales = findViewById(R.id.sales_6);
+            popmieStock = findViewById(R.id.stock_6);
         siomaySales = findViewById(R.id.sales_7);
         siomayStock = findViewById(R.id.stock_7);
 
         //Define Minuman Table
+        aquaSales = findViewById(R.id.sales2_1);
+        aquaStock = findViewById(R.id.stock2_1);
+            cocaColaSales = findViewById(R.id.sales2_2);
+            cocaColaStock = findViewById(R.id.stock2_2);
+        esKopiDurianSales = findViewById(R.id.sales2_3);
+        esKopiDurianStock = findViewById(R.id.stock2_3);
+            fantaSales = findViewById(R.id.sales2_4);
+            fantaStock = findViewById(R.id.stock2_4);
+        fresteaSales = findViewById(R.id.sales2_5);
+        fresteaStock = findViewById(R.id.stock2_5);
+            kopiHitamSales = findViewById(R.id.sales2_6);
+            kopiHitamStock = findViewById(R.id.stock2_6);
+        miloSales = findViewById(R.id.sales2_7);
+        miloStock = findViewById(R.id.stock2_7);
+            spriteSales = findViewById(R.id.sales2_8);
+            spriteStock = findViewById(R.id.stock2_8);
+        tehGelasSales = findViewById(R.id.sales2_9);
+        tehGelasStock = findViewById(R.id.stock2_9);
+            tehPucukHarumSales = findViewById(R.id.sales2_10);
+            tehPucukHarumStock = findViewById(R.id.stock2_10);
+
+
 
         reff = FirebaseDatabase.getInstance("https://point-of-sales-app-25e2b-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("TransacationDetail");
         reffStock = FirebaseDatabase.getInstance("https://point-of-sales-app-25e2b-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("StockCount");
@@ -196,6 +213,26 @@ public class MainActivity extends AppCompatActivity {
                 reff.addListenerForSingleValueEvent(minumanQuery);
                 break;
         }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                changeValue();
+
+            }
+        }, 2000);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                makananSales.clear();
+                makananInventory.clear();
+                minumanInventory.clear();
+                minumanSales.clear();
+            }
+        }, 3000);
+
+
+        Toast.makeText(this, "Query is done... did it work?", Toast.LENGTH_SHORT).show();
     }
 
     public void InsertMenu() {
@@ -220,6 +257,8 @@ public class MainActivity extends AppCompatActivity {
         minumanList.add("Sprite");
         minumanList.add("Teh Gelas");
         minumanList.add("Teh Pucuk Harum"); //10
+
+        Log.i("Menu:", "Has been successfully inserted");
 
         //Populate Inventory and Sales List
 //        int i = 0;
@@ -247,9 +286,10 @@ public class MainActivity extends AppCompatActivity {
                     int i = 0;
                     while (i < makananList.size()) {
                         makanan_string = makananList.get(i);
-                        Query foodSalesQuery = reff.startAt(makanan_string).endAt(makanan_string+"\uf8ff");
-                        Query foodInventoryQuery = reffStock.startAt(makanan_string).endAt(makanan_string+"\uf8ff");
 
+                        Query foodSalesQuery = reff.orderByChild("itemID").startAt(makanan_string).endAt(makanan_string+"\uf8ff");
+                        Query foodInventoryQuery = reffStock.orderByChild("itemID").startAt(makanan_string).endAt(makanan_string+"\uf8ff");
+                        Log.i("Query terisi", "makanan query");
                         foodSalesQuery.addListenerForSingleValueEvent(makananSalesQuery);
                         foodInventoryQuery.addListenerForSingleValueEvent(makananInventoryQuery);
                         i++;
@@ -276,9 +316,10 @@ public class MainActivity extends AppCompatActivity {
                     int pValue = Integer.parseInt(String.valueOf(subtotal));
                     sales += pValue;
                     makananSales.add(sales);
+                    Log.i("Query terisi", "makanan sales query");
                 }
             } else {
-
+                makananSales.add(0);
             }
         }
 
@@ -303,6 +344,7 @@ public class MainActivity extends AppCompatActivity {
                     makananInventory.add(inventory);
                 }
             } else {
+                makananInventory.add(0);
 
             }
         };
@@ -323,9 +365,9 @@ public class MainActivity extends AppCompatActivity {
                     Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
                     int i = 0;
                     while (i < minumanList.size()) {
-                        minuman_string = makananList.get(i);
-                        Query drinksSalesQuery = reff.startAt(minuman_string).endAt(minuman_string+"\uf8ff");
-                        Query drinksInventoryQuery = reffStock.startAt(minuman_string).endAt(minuman_string+"\uf8ff");
+                        minuman_string = minumanList.get(i);
+                        Query drinksSalesQuery = reff.orderByChild("itemID").startAt(minuman_string).endAt(minuman_string+"\uf8ff");
+                        Query drinksInventoryQuery = reffStock.orderByChild("itemID").startAt(minuman_string).endAt(minuman_string+"\uf8ff");
 
                         drinksSalesQuery.addListenerForSingleValueEvent(minumanSalesQuery);
                         drinksInventoryQuery.addListenerForSingleValueEvent(minumanInventoryQuery);
@@ -356,6 +398,7 @@ public class MainActivity extends AppCompatActivity {
                     minumanSales.add(sales);
                 }
             } else {
+                minumanInventory.add(0);
 
             }
         }
@@ -380,6 +423,7 @@ public class MainActivity extends AppCompatActivity {
                     minumanInventory.add(invetory);
                 }
             } else {
+                minumanInventory.add(0);
 
             }
 
@@ -394,6 +438,46 @@ public class MainActivity extends AppCompatActivity {
     //Change Table Sales and Stock Value
 
     public void changeValue() {
+
+        //Makanan
+        baksoSales.setText(String.valueOf(makananSales.get(0)));
+        baksoStock.setText(String.valueOf(makananInventory.get(0)));
+                                                                        kentangSales.setText(String.valueOf(makananSales.get(1)));
+                                                                        kentangStock.setText(String.valueOf(makananInventory.get(1)));
+        nasbungASales.setText(String.valueOf(makananSales.get(2)));
+        nasbungAStock.setText(String.valueOf(makananInventory.get(2)));
+                                                                        nasbungBSales.setText(String.valueOf(makananSales.get(3)));
+                                                                        nasbungBStock.setText(String.valueOf(makananInventory.get(3)));
+        nasiLaukSales.setText(String.valueOf(makananSales.get(4)));
+        nasiLaukStock.setText(String.valueOf(makananInventory.get(4)));
+                                                                        popmieSales.setText(String.valueOf(makananSales.get(5)));
+                                                                        popmieStock.setText(String.valueOf(makananInventory.get(5)));
+        siomaySales.setText(String.valueOf(makananSales.get(6)));
+        siomayStock.setText(String.valueOf(makananInventory.get(6)));
+
+
+
+        //Minuman
+        aquaSales.setText(String.valueOf(minumanSales.get(0)));
+        aquaStock.setText(String.valueOf(minumanInventory.get(0)));
+                                                                        cocaColaSales.setText(String.valueOf(minumanSales.get(1)));
+                                                                        cocaColaStock.setText(String.valueOf(minumanInventory.get(1)));
+        esKopiDurianSales.setText(String.valueOf(minumanSales.get(2)));
+        esKopiDurianStock.setText(String.valueOf(minumanInventory.get(2)));
+                                                                        fantaSales.setText(String.valueOf(minumanSales.get(3)));
+                                                                        fantaStock.setText(String.valueOf(minumanInventory.get(3)));
+        fresteaSales.setText(String.valueOf(minumanSales.get(4)));
+        fresteaStock.setText(String.valueOf(minumanInventory.get(4)));
+                                                                        kopiHitamSales.setText(String.valueOf(minumanSales.get(5)));
+                                                                        kopiHitamStock.setText(String.valueOf(minumanInventory.get(5)));
+        miloSales.setText(String.valueOf(minumanSales.get(6)));
+        miloStock.setText(String.valueOf(minumanInventory.get(6)));
+                                                                        spriteSales.setText(String.valueOf(minumanSales.get(7)));
+                                                                        spriteStock.setText(String.valueOf(minumanInventory.get(7)));
+        tehGelasSales.setText(String.valueOf(minumanSales.get(8)));
+        tehGelasStock.setText(String.valueOf(minumanInventory.get(8)));
+                                                                        tehPucukHarumSales .setText(String.valueOf(minumanSales.get(9)));
+                                                                        tehPucukHarumStock .setText(String.valueOf(minumanInventory.get(9)));
 
 
     }
