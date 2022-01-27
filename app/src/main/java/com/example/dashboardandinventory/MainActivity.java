@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     String[] labels;
     TextView totalHariIniTextView;
     DatabaseReference reff;
+    DatabaseReference reffStock;
     Query revToday;
     Query revMonth;
     Query revYear;
@@ -48,6 +50,43 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Integer> minumanSales;
     ArrayList<Integer> minumanInventory;
 
+    //Table
+    TextView baksoSales;
+    TextView baksoStock;
+    TextView kentangSales;
+    TextView kentangStock;
+    TextView nasbungASales;
+    TextView nasbungAStock;
+    TextView nasbungBSales;
+    TextView nasbungBStock;
+    TextView nasiLaukSales;
+    TextView nasiLaukStock;
+    TextView popmieSales;
+    TextView popmieStock;
+    TextView siomaySales;
+    TextView siomayStock;
+
+    TextView aquaSales;
+    TextView aquaStock;
+    TextView cocaColaSales;
+    TextView cocaColaStock;
+    TextView esKopiDurianSales;
+    TextView esKopiDurianStock;
+    TextView fantaSales;
+    TextView fantaStock;
+    TextView fresteaSales;
+    TextView fresteaStock;
+    TextView kopiHitamSales;
+    TextView kopiHitamStock;
+    TextView miloSales;
+    TextView miloStock;
+    TextView spriteSales;
+    TextView spriteStock;
+    TextView tehGelasSales;
+    TextView tehGelasStock;
+    TextView tehPucukHarumSales;
+    TextView tehPucukHarumStock;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
         //Define
         makananList = new ArrayList<>();
         minumanList = new ArrayList<>();
+        makananInventory = new ArrayList<>();
+        makananSales =  new ArrayList<>();
+        minumanInventory = new ArrayList<>();
+        minumanSales =  new ArrayList<>();
         pendaptanKapanTextView = (TextView) findViewById(R.id.pendapatanKapan);
         nominalPendapatanTextView = (TextView) findViewById(R.id.nominalPendapatan);
         dayButton = findViewById(R.id.buttonDaily);
@@ -64,7 +107,32 @@ public class MainActivity extends AppCompatActivity {
         yearButton =  findViewById(R.id.buttonYearly);
         alltimeButton = findViewById(R.id.buttonAlltime);
 
+        //Define Makanan Table
+        baksoSales = findViewById(R.id.sales_1);
+        baksoStock = findViewById(R.id.stock_1);
+
+        kentangSales = findViewById(R.id.sales_2);
+        kentangStock = findViewById(R.id.stock_2);
+
+        nasbungASales = findViewById(R.id.sales_3);
+        nasbungAStock = findViewById(R.id.stock_3);
+
+        nasbungBSales = findViewById(R.id.sales_4);
+        nasbungBStock = findViewById(R.id.stock_4);
+
+        nasiLaukSales = findViewById(R.id.sales_5);
+        nasiLaukStock = findViewById(R.id.stock_5);
+
+        popmieSales = findViewById(R.id.sales_6);
+        popmieStock = findViewById(R.id.stock_6);
+
+        siomaySales = findViewById(R.id.sales_7);
+        siomayStock = findViewById(R.id.stock_7);
+
+        //Define Minuman Table
+
         reff = FirebaseDatabase.getInstance("https://point-of-sales-app-25e2b-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("TransacationDetail");
+        reffStock = FirebaseDatabase.getInstance("https://point-of-sales-app-25e2b-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("StockCount");
         revToday = reff.orderByChild("timeStamp").startAt(getDate()).endAt(getDate()+"\uf8ff");
         revMonth = reff.orderByChild("timeStamp").startAt(getMonth()).endAt(getMonth()+"\uf8ff");
         revYear = reff.orderByChild("timeStamp").startAt(getYear()).endAt(getYear()+"\uf8ff");
@@ -102,21 +170,30 @@ public class MainActivity extends AppCompatActivity {
             case "day":
                 Log.i("Timeframe:", "Day");
 //                dayButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.buttonSelected)));
+                pendaptanKapanTextView.setText("Pendapatan Hari ini");
                 revToday.addListenerForSingleValueEvent(revenueCount);
+                revToday.addListenerForSingleValueEvent(makananQuery);
+                revToday.addListenerForSingleValueEvent(minumanQuery);
                 break;
 
             case "month":
-                Log.i("Timeframe:", "Month");
 //                monthButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.buttonSelected)));
+                pendaptanKapanTextView.setText("Pendapatan Bulan ini");
                 revMonth.addListenerForSingleValueEvent(revenueCount);
+                revMonth.addListenerForSingleValueEvent(makananQuery);
+                revMonth.addListenerForSingleValueEvent(minumanQuery);
                 break;
             case "year":
-                Log.i("Timeframe:", "Year");
+                pendaptanKapanTextView.setText("Pendapatan Tahun ini");
                 revYear.addListenerForSingleValueEvent(revenueCount);
+                revYear.addListenerForSingleValueEvent(makananQuery);
+                revYear.addListenerForSingleValueEvent(minumanQuery);
                 break;
             case "alltime":
-                Log.i("Timeframe:", "Alltime");
+                pendaptanKapanTextView.setText("Pendapatan All Time");
                 reff.addListenerForSingleValueEvent(revenueCount);
+                reff.addListenerForSingleValueEvent(makananQuery);
+                reff.addListenerForSingleValueEvent(minumanQuery);
                 break;
         }
     }
@@ -143,8 +220,187 @@ public class MainActivity extends AppCompatActivity {
         minumanList.add("Sprite");
         minumanList.add("Teh Gelas");
         minumanList.add("Teh Pucuk Harum"); //10
+
+        //Populate Inventory and Sales List
+//        int i = 0;
+//        while (i < makananList.size()) {
+//            makananSales.add(0);
+//            minumanInventory.add(0);
+//            i++;
+//        }
+//        int j = 0;
+//        while (j < minumanList.size()){
+//            minumanInventory.add(0);
+//            minumanSales.add(0);
+//            j++;
+//        }
     }
 
+    //Makanan Query
+    ValueEventListener makananQuery =  new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            String makanan_string = "";
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
+                    int i = 0;
+                    while (i < makananList.size()) {
+                        makanan_string = makananList.get(i);
+                        Query foodSalesQuery = reff.startAt(makanan_string).endAt(makanan_string+"\uf8ff");
+                        Query foodInventoryQuery = reffStock.startAt(makanan_string).endAt(makanan_string+"\uf8ff");
+
+                        foodSalesQuery.addListenerForSingleValueEvent(makananSalesQuery);
+                        foodInventoryQuery.addListenerForSingleValueEvent(makananInventoryQuery);
+                        i++;
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
+    //Makanan Sales Query
+    ValueEventListener makananSalesQuery = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            int sales = 0;
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
+                    Object subtotal = map.get("quantity");
+                    int pValue = Integer.parseInt(String.valueOf(subtotal));
+                    sales += pValue;
+                    makananSales.add(sales);
+                }
+            } else {
+
+            }
+        }
+
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
+    //Makanan Stock Query
+    ValueEventListener makananInventoryQuery = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            int inventory = 0;
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
+                    Object subtotal = map.get("quantity");
+                    int pValue = Integer.parseInt(String.valueOf(subtotal));
+                    inventory += pValue;
+                    makananInventory.add(inventory);
+                }
+            } else {
+
+            }
+        };
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
+    //Minuman Query
+    ValueEventListener minumanQuery =  new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            String minuman_string = "";
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
+                    int i = 0;
+                    while (i < minumanList.size()) {
+                        minuman_string = makananList.get(i);
+                        Query drinksSalesQuery = reff.startAt(minuman_string).endAt(minuman_string+"\uf8ff");
+                        Query drinksInventoryQuery = reffStock.startAt(minuman_string).endAt(minuman_string+"\uf8ff");
+
+                        drinksSalesQuery.addListenerForSingleValueEvent(minumanSalesQuery);
+                        drinksInventoryQuery.addListenerForSingleValueEvent(minumanInventoryQuery);
+                        i++;
+                    }
+                }
+            }
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
+    //Minuman Sales Query
+    ValueEventListener minumanSalesQuery =  new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            int sales = 0;
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
+                    Object subtotal = map.get("quantity");
+                    int pValue = Integer.parseInt(String.valueOf(subtotal));
+                    sales += pValue;
+                    minumanSales.add(sales);
+                }
+            } else {
+
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
+    //Minuman Inventory Query
+    ValueEventListener minumanInventoryQuery = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            int invetory = 0;
+            if (dataSnapshot.exists()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
+                    Object subtotal = map.get("quantity");
+                    int pValue = Integer.parseInt(String.valueOf(subtotal));
+                    invetory += pValue;
+                    minumanInventory.add(invetory);
+                }
+            } else {
+
+            }
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
+    //Change Table Sales and Stock Value
+
+    public void changeValue() {
+
+
+    }
+
+
+
+    //Total Revenue
     ValueEventListener revenueCount = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
