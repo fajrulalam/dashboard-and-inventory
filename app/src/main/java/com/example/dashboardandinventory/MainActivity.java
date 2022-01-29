@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
     Query revToday;
     Query revMonth;
     Query revYear;
+    Query revMakananSales;
+    Query revMakananStock;
+    Query revMinumanSales;
+    Query revMinumanStock;
     TextView pendaptanKapanTextView;
     TextView nominalPendapatanTextView;
     Button dayButton;
@@ -154,6 +158,8 @@ public class MainActivity extends AppCompatActivity {
         revMonth = reff.orderByChild("timeStamp").startAt(getMonth()).endAt(getMonth()+"\uf8ff");
         revYear = reff.orderByChild("timeStamp").startAt(getYear()).endAt(getYear()+"\uf8ff");
 
+
+
         Log.i("Tanggal", getDate());
         Log.i("Bulan", getMonth());
         Log.i("Tahun", getYear());
@@ -189,50 +195,109 @@ public class MainActivity extends AppCompatActivity {
 //                dayButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.buttonSelected)));
                 pendaptanKapanTextView.setText("Pendapatan Hari ini");
                 revToday.addListenerForSingleValueEvent(revenueCount);
-                revToday.addListenerForSingleValueEvent(makananQuery);
-                revToday.addListenerForSingleValueEvent(minumanQuery);
+                String date_makanan = "";
+                for(int i =0; i<makananList.size(); i++){
+                    date_makanan = getDate() + "_" + makananList.get(i);
+                    revMakananSales = reff.orderByChild("day_itemID").equalTo(date_makanan);
+                    revMakananStock = reffStock.orderByChild("day_itemID").equalTo(date_makanan);
+
+
+                    revMakananSales.addListenerForSingleValueEvent(makananSalesQuery);
+                    revMakananStock.addListenerForSingleValueEvent(makananInventoryQuery);
+                }
+                changeValue();
+
+//                revToday.addListenerForSingleValueEvent(makananQuery);
+//                revToday.addListenerForSingleValueEvent(minumanQuery);
                 break;
 
             case "month":
 //                monthButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.buttonSelected)));
                 pendaptanKapanTextView.setText("Pendapatan Bulan ini");
                 revMonth.addListenerForSingleValueEvent(revenueCount);
-                revMonth.addListenerForSingleValueEvent(makananQuery);
-                revMonth.addListenerForSingleValueEvent(minumanQuery);
+//                String month_makanan = "";
+//                for(int i =0; i<makananList.size(); i++){
+//                    month_makanan = getMonth() + "_" + makananList.get(i);
+//                    revMakananSales = reff.orderByChild("month_itemID").equalTo(month_makanan);
+//                    revMakananStock = reffStock.orderByChild("month_itemID").equalTo(month_makanan);
+//                    Log.i("Masuk ke loop", month_makanan);
+//
+//
+//                    revMakananSales.addListenerForSingleValueEvent(makananSalesQuery);
+//                    revMakananStock.addListenerForSingleValueEvent(makananInventoryQuery);
+//                }
+//
+//                String month_minuman = "";
+//                for(int i =0; i<minumanList.size(); i++){
+//                    month_minuman = getMonth() + "_" + minumanList.get(i);
+//                    revMinumanSales = reff.orderByChild("day_itemID").equalTo(month_minuman);
+//                    revMinumanStock = reffStock.orderByChild("day_itemID").equalTo(month_minuman);
+//                    Log.i("Masuk ke loop", month_minuman);
+//
+//
+//                    revMakananSales.addListenerForSingleValueEvent(minumanSalesQuery);
+//                    revMinumanStock.addListenerForSingleValueEvent(minumanInventoryQuery);
+//                }
+
+
+
+
                 break;
             case "year":
                 pendaptanKapanTextView.setText("Pendapatan Tahun ini");
                 revYear.addListenerForSingleValueEvent(revenueCount);
-                revYear.addListenerForSingleValueEvent(makananQuery);
-                revYear.addListenerForSingleValueEvent(minumanQuery);
+//                revYear.addListenerForSingleValueEvent(makananQuery);
+//                revYear.addListenerForSingleValueEvent(minumanQuery);
                 break;
             case "alltime":
                 pendaptanKapanTextView.setText("Pendapatan All Time");
                 reff.addListenerForSingleValueEvent(revenueCount);
-                reff.addListenerForSingleValueEvent(makananQuery);
-                reff.addListenerForSingleValueEvent(minumanQuery);
+//                reff.addListenerForSingleValueEvent(makananQuery);
+//                reff.addListenerForSingleValueEvent(minumanQuery);
                 break;
         }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 changeValue();
-
             }
-        }, 2000);
+        }, 1000);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                makananSales.clear();
-                makananInventory.clear();
-                minumanInventory.clear();
-                minumanSales.clear();
-            }
-        }, 3000);
 
 
         Toast.makeText(this, "Query is done... did it work?", Toast.LENGTH_SHORT).show();
+    }
+
+    private void readData(FirebaseCallBack firebaseCallBack) {
+        String month_makanan = "";
+        for(int i =0; i<makananList.size(); i++){
+            month_makanan = getMonth() + "_" + makananList.get(i);
+            revMakananSales = reff.orderByChild("month_itemID").equalTo(month_makanan);
+            revMakananStock = reffStock.orderByChild("month_itemID").equalTo(month_makanan);
+            Log.i("Masuk ke loop", month_makanan);
+
+
+            revMakananSales.addListenerForSingleValueEvent(makananSalesQuery);
+            revMakananStock.addListenerForSingleValueEvent(makananInventoryQuery);
+        }
+
+
+        String month_minuman = "";
+        for(int i =0; i<minumanList.size(); i++){
+            month_minuman = getMonth() + "_" + minumanList.get(i);
+            revMinumanSales = reff.orderByChild("day_itemID").equalTo(month_minuman);
+            revMinumanStock = reffStock.orderByChild("day_itemID").equalTo(month_minuman);
+            Log.i("Masuk ke loop", month_minuman);
+
+
+            revMakananSales.addListenerForSingleValueEvent(minumanSalesQuery);
+            revMinumanStock.addListenerForSingleValueEvent(minumanInventoryQuery);
+        }
+
+    }
+
+    private interface FirebaseCallBack {
+        void onCallback(ArrayList<String> arrayList);
     }
 
     public void InsertMenu() {
@@ -295,6 +360,7 @@ public class MainActivity extends AppCompatActivity {
                         i++;
                     }
                 }
+
             }
         }
 
@@ -338,7 +404,7 @@ public class MainActivity extends AppCompatActivity {
             if (dataSnapshot.exists()) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
-                    Object subtotal = map.get("quantity");
+                    Object subtotal = map.get("stockChange");
                     int pValue = Integer.parseInt(String.valueOf(subtotal));
                     inventory += pValue;
                     makananInventory.add(inventory);
@@ -398,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
                     minumanSales.add(sales);
                 }
             } else {
-                minumanInventory.add(0);
+                minumanSales.add(0);
 
             }
         }
@@ -417,13 +483,14 @@ public class MainActivity extends AppCompatActivity {
             if (dataSnapshot.exists()) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
-                    Object subtotal = map.get("quantity");
+                    Object subtotal = map.get("StockChange");
                     int pValue = Integer.parseInt(String.valueOf(subtotal));
                     invetory += pValue;
                     minumanInventory.add(invetory);
                 }
             } else {
                 minumanInventory.add(0);
+                Log.i("MIQ", "added 0 here");
 
             }
 
