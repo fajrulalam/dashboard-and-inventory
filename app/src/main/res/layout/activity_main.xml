@@ -354,7 +354,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Nasi Bungkus A"
+                        android:text="Nasbung A"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
@@ -409,7 +409,7 @@
                         android:fontFamily="@font/poppins_regular"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Nasi Bungkus B"
+                        android:text="Nasbung B"
                         android:textColor="#B3000000"
                         android:textSize="14sp"></TextView>
 
