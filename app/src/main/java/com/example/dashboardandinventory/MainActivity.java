@@ -183,6 +183,90 @@ public class MainActivity extends AppCompatActivity {
 
 
         countRevenue(getDate());
+        String date_makanan = "";
+        for (int i = 0; i < makananList.size(); i++) {
+            date_makanan = getDate() + "_" + makananList.get(i);
+
+
+            fs.collection("TransactionDetail").whereEqualTo("day_itemID", date_makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                    int sum = 0;
+                    for (DocumentSnapshot snapshot : snapshotList) {
+                        Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                        Object subtotal = map.get("quantity");
+                        Object item = map.get("itemID");
+                        String item_string = item.toString();
+                        int pValue = Integer.parseInt(String.valueOf(subtotal));
+                        sum += pValue;
+                        Log.i(TAG, "onSuccess: " + item_string + " " + sum);
+                        doSwitchMakananSales(item_string, sum);
+                    }
+                }
+            });
+
+            fs.collection("Stock").whereEqualTo("day_itemID", date_makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                    int sum = 0;
+                    for (DocumentSnapshot snapshot : snapshotList) {
+                        Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                        Object subtotal = map.get("quantity");
+                        Object item = map.get("itemID");
+                        String item_string = item.toString();
+                        int pValue = Integer.parseInt(String.valueOf(subtotal));
+                        sum += pValue;
+                        doSwitchMakananInventory(item_string, sum);
+                    }
+                }
+            });
+
+
+        }
+        String date_minuman = "";
+        for (int i = 0; i < minumanList.size(); i++) {
+            date_minuman = getDate() + "_" + minumanList.get(i);
+
+
+
+            fs.collection("TransactionDetail").whereEqualTo("day_itemID", date_minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                    int sum = 0;
+                    for (DocumentSnapshot snapshot : snapshotList) {
+                        Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                        Object item = map.get("itemID");
+                        Object subtotal = map.get("quantity");
+                        String item_string = item.toString();
+                        int pValue = Integer.parseInt(String.valueOf(subtotal));
+                        sum += pValue;
+                        doSwitchMinumanSales(item_string, sum);
+
+                    }
+                }
+            });
+
+            fs.collection("Stock").whereEqualTo("day_itemID", date_minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                    int sum = 0;
+                    for (DocumentSnapshot snapshot : snapshotList) {
+                        Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                        Object subtotal = map.get("quantity");
+                        Object item = map.get("itemID");
+                        String item_string = item.toString();
+                        int pValue = Integer.parseInt(String.valueOf(subtotal));
+                        sum += pValue;
+                        doSwitchMinumanInventory(item_string, sum);
+                    }
+                }
+
+            });
+        }
 
 
     }
