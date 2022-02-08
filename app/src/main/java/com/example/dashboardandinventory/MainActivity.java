@@ -173,13 +173,12 @@ public class MainActivity extends AppCompatActivity {
         revYear = reff.orderByChild("timeStamp").startAt(getYear()).endAt(getYear() + "\uf8ff");
 
 
-        Log.i("Tanggal", getDate());
-        Log.i("Bulan", getMonth());
-        Log.i("Tahun", getYear());
+
 //        totalHariIniTextView = findViewById(R.id.TotalHariIni);
 //        revToday.addListenerForSingleValueEvent(revenueCount);
 
         InsertMenu();
+        resetData();
 
 
         countRevenue(getDate());
@@ -528,7 +527,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 String year_minuman = "";
                 for (int i = 0; i < minumanList.size(); i++) {
-                    date_minuman = getYear() + "_" + minumanList.get(i);
+                    year_minuman = getYear() + "_" + minumanList.get(i);
 
 
 
@@ -752,6 +751,10 @@ public class MainActivity extends AppCompatActivity {
     //Reset the Sales and Inventory
     public void resetData() {
         //Populate Inventory and Sales List with 0's
+        makananSales.clear();
+        makananInventory.clear();
+        minumanInventory.clear();
+        minumanSales.clear();
         int i = 0;
         while (i < makananList.size()) {
             makananSales.add(0);
