@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Dashboard and Inventory</string>
+    <string name="your_string_here">&lt;u&gt;0&lt;/u&gt;.</string>
+    <string name="my_text"><u>0</u>.</string>
 </resources>

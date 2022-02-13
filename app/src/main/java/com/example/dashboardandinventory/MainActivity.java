@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -83,6 +84,24 @@ public class MainActivity extends AppCompatActivity {
     TextView popmieStock;
     TextView siomaySales;
     TextView siomayStock;
+    TextView mieAyamSales;
+    TextView mieAyamStock;
+    TextView nasiAyamSales;
+    TextView nasiAyamStock;
+    TextView nasiPindangSales;
+    TextView nasiPindangStock;
+    TextView nasiTelurSales;
+    TextView nasiTelurStock;
+    TextView pisangGorengSales;
+    TextView pisangGorengStock;
+    TextView serealSales;
+    TextView serealStock;
+    TextView tahuGorengSales;
+    TextView tahuGorengStock;
+    TextView sosisNagetSales;
+    TextView sosisNagetStock;
+
+
 
     TextView aquaSales;
     TextView aquaStock;
@@ -104,6 +123,16 @@ public class MainActivity extends AppCompatActivity {
     TextView tehGelasStock;
     TextView tehPucukHarumSales;
     TextView tehPucukHarumStock;
+    TextView floridinaSales;
+    TextView floridinaStock;
+    TextView isoplusSales;
+    TextView isoplusStock;
+
+    public void stockUpdate(View view){
+
+
+
+    }
 
 
     @Override
@@ -132,16 +161,30 @@ public class MainActivity extends AppCompatActivity {
         baksoStock = findViewById(R.id.stock_1);
         kentangSales = findViewById(R.id.sales_2);
         kentangStock = findViewById(R.id.stock_2);
-        nasbungASales = findViewById(R.id.sales_3);
-        nasbungAStock = findViewById(R.id.stock_3);
-        nasbungBSales = findViewById(R.id.sales_4);
-        nasbungBStock = findViewById(R.id.stock_4);
-        nasiLaukSales = findViewById(R.id.sales_5);
-        nasiLaukStock = findViewById(R.id.stock_5);
-        popmieSales = findViewById(R.id.sales_6);
-        popmieStock = findViewById(R.id.stock_6);
-        siomaySales = findViewById(R.id.sales_7);
-        siomayStock = findViewById(R.id.stock_7);
+        mieAyamSales = findViewById(R.id.sales_3);
+        mieAyamStock = findViewById(R.id.stock_4);
+        nasbungASales = findViewById(R.id.sales_4);
+        nasbungAStock = findViewById(R.id.stock_4);
+        nasbungBSales = findViewById(R.id.sales_5);
+        nasbungBStock = findViewById(R.id.stock_5);
+        nasiAyamSales = findViewById(R.id.sales_6);
+        nasiAyamStock = findViewById(R.id.stock_6);
+        nasiPindangSales = findViewById(R.id.sales_7);
+        nasiPindangStock = findViewById(R.id.stock_7);
+        nasiTelurSales = findViewById(R.id.sales_8);
+        nasiTelurStock = findViewById(R.id.stock_8);
+        pisangGorengSales = findViewById(R.id.sales_9);
+        pisangGorengStock = findViewById(R.id.stock_9);
+        popmieSales = findViewById(R.id.sales_10);
+        popmieStock = findViewById(R.id.stock_10);
+        serealSales = findViewById(R.id.sales_11);
+        serealStock = findViewById(R.id.stock_11);
+        tahuGorengSales = findViewById(R.id.sales_12);
+        tahuGorengStock = findViewById(R.id.stock_12);
+        siomaySales = findViewById(R.id.sales_13);
+        siomayStock = findViewById(R.id.stock_13);
+        sosisNagetSales = findViewById(R.id.sales_14);
+        sosisNagetStock = findViewById(R.id.stock_14);
 
         //Define Minuman Table
         aquaSales = findViewById(R.id.sales2_1);
@@ -150,20 +193,24 @@ public class MainActivity extends AppCompatActivity {
         cocaColaStock = findViewById(R.id.stock2_2);
         esKopiDurianSales = findViewById(R.id.sales2_3);
         esKopiDurianStock = findViewById(R.id.stock2_3);
-        fantaSales = findViewById(R.id.sales2_4);
-        fantaStock = findViewById(R.id.stock2_4);
-        fresteaSales = findViewById(R.id.sales2_5);
-        fresteaStock = findViewById(R.id.stock2_5);
-        kopiHitamSales = findViewById(R.id.sales2_6);
-        kopiHitamStock = findViewById(R.id.stock2_6);
-        miloSales = findViewById(R.id.sales2_7);
-        miloStock = findViewById(R.id.stock2_7);
-        spriteSales = findViewById(R.id.sales2_8);
-        spriteStock = findViewById(R.id.stock2_8);
-        tehGelasSales = findViewById(R.id.sales2_9);
-        tehGelasStock = findViewById(R.id.stock2_9);
-        tehPucukHarumSales = findViewById(R.id.sales2_10);
-        tehPucukHarumStock = findViewById(R.id.stock2_10);
+        tehGelasSales = findViewById(R.id.sales2_4);
+        tehGelasStock = findViewById(R.id.stock2_4);
+        fantaSales = findViewById(R.id.sales2_5);
+        fantaStock = findViewById(R.id.stock2_5);
+        floridinaSales = findViewById(R.id.sales2_6);
+        floridinaStock = findViewById(R.id.stock2_6);
+        fresteaSales = findViewById(R.id.sales2_7);
+        fresteaStock = findViewById(R.id.stock2_7);
+        isoplusSales = findViewById(R.id.sales2_8);
+        isoplusStock = findViewById(R.id.stock2_8);
+        kopiHitamSales = findViewById(R.id.sales2_9);
+        kopiHitamStock = findViewById(R.id.stock2_9);
+        miloSales = findViewById(R.id.sales2_10);
+        miloStock = findViewById(R.id.stock2_10);
+        spriteSales = findViewById(R.id.sales2_11);
+        spriteStock = findViewById(R.id.stock2_11);
+        tehPucukHarumSales = findViewById(R.id.sales2_12);
+        tehPucukHarumStock = findViewById(R.id.stock2_12);
 
 
         reff = FirebaseDatabase.getInstance("https://point-of-sales-app-25e2b-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("TransacationDetail");
@@ -722,24 +769,33 @@ public class MainActivity extends AppCompatActivity {
         //Makanan
         makananList.add("Bakso"); //0
         makananList.add("Kentang G");
+        makananList.add("Mie Ayam");
         makananList.add("NasBung A");
         makananList.add("NasBung B");
-        makananList.add("Nasi Lauk");
+        makananList.add("Nasi Ayam");
+        makananList.add("Nasi Pindang"); // 7
+        makananList.add("Nasi Telur");
+        makananList.add("Pisang G");
         makananList.add("Popmie");
-        makananList.add("Siomay"); // 7
+        makananList.add("Sereal");
+        makananList.add("Tahu G");
+        makananList.add("Siomay");
+        makananList.add("Sosis Naget"); //14
 
 
         //Minuman
         minumanList.add("Aqua 600ml"); //0
         minumanList.add("Coca Cola");
         minumanList.add("Es Kopi Durian");
+        minumanList.add("Es Teh");
         minumanList.add("Fanta");
-        minumanList.add("Frestea");
+        minumanList.add("Floridina");
+        minumanList.add("Frestea"); //7
+        minumanList.add("Isoplus");
         minumanList.add("Kopi Hitam");
         minumanList.add("Milo");
         minumanList.add("Sprite");
-        minumanList.add("Teh Gelas");
-        minumanList.add("Teh Pucuk Harum"); //10
+        minumanList.add("Teh Pucuk Harum"); //12
 
 
 
@@ -942,17 +998,30 @@ public class MainActivity extends AppCompatActivity {
         baksoStock.setText(String.valueOf(makananInventory.get(0)));
         kentangSales.setText(String.valueOf(makananSales.get(1)));
         kentangStock.setText(String.valueOf(makananInventory.get(1)));
-        nasbungASales.setText(String.valueOf(makananSales.get(2)));
-        nasbungAStock.setText(String.valueOf(makananInventory.get(2)));
-        nasbungBSales.setText(String.valueOf(makananSales.get(3)));
-        nasbungBStock.setText(String.valueOf(makananInventory.get(3)));
-        nasiLaukSales.setText(String.valueOf(makananSales.get(4)));
-        nasiLaukStock.setText(String.valueOf(makananInventory.get(4)));
-        popmieSales.setText(String.valueOf(makananSales.get(5)));
-        popmieStock.setText(String.valueOf(makananInventory.get(5)));
-        siomaySales.setText(String.valueOf(makananSales.get(6)));
-        siomayStock.setText(String.valueOf(makananInventory.get(6)));
-
+        mieAyamSales.setText(String.valueOf(makananSales.get(2)));
+        mieAyamStock.setText(String.valueOf(makananInventory.get(2)));
+        nasbungASales.setText(String.valueOf(makananSales.get(3)));
+        nasbungAStock.setText(String.valueOf(makananInventory.get(3)));
+        nasbungBSales.setText(String.valueOf(makananSales.get(4)));
+        nasbungBStock.setText(String.valueOf(makananInventory.get(4)));
+        nasiAyamSales.setText(String.valueOf(makananSales.get(5)));
+        nasiAyamStock.setText(String.valueOf(makananInventory.get(5)));
+        nasiPindangSales.setText(String.valueOf(makananSales.get(6)));
+        nasiPindangStock.setText(String.valueOf(makananInventory.get(6)));
+        nasiTelurSales.setText(String.valueOf(makananSales.get(7)));
+        nasiTelurStock.setText(String.valueOf(makananInventory.get(7)));
+        pisangGorengSales.setText(String.valueOf(makananSales.get(8)));
+        pisangGorengStock.setText(String.valueOf(makananInventory.get(8)));
+        popmieSales.setText(String.valueOf(makananSales.get(9)));
+        popmieStock.setText(String.valueOf(makananInventory.get(9)));
+        serealSales.setText(String.valueOf(makananSales.get(10)));
+        serealStock.setText(String.valueOf(makananInventory.get(10)));
+        tahuGorengSales.setText(String.valueOf(makananSales.get(11)));
+        tahuGorengStock.setText(String.valueOf(makananInventory.get(11)));
+        siomaySales.setText(String.valueOf(makananSales.get(12)));
+        siomayStock.setText(String.valueOf(makananInventory.get(12)));
+        sosisNagetSales.setText(String.valueOf(makananSales.get(13)));
+        sosisNagetStock.setText(String.valueOf(makananInventory.get(13)));
 
         //Minuman
         aquaSales.setText(String.valueOf(minumanSales.get(0)));
@@ -961,20 +1030,24 @@ public class MainActivity extends AppCompatActivity {
         cocaColaStock.setText(String.valueOf(minumanInventory.get(1)));
         esKopiDurianSales.setText(String.valueOf(minumanSales.get(2)));
         esKopiDurianStock.setText(String.valueOf(minumanInventory.get(2)));
-        fantaSales.setText(String.valueOf(minumanSales.get(3)));
-        fantaStock.setText(String.valueOf(minumanInventory.get(3)));
-        fresteaSales.setText(String.valueOf(minumanSales.get(4)));
-        fresteaStock.setText(String.valueOf(minumanInventory.get(4)));
-        kopiHitamSales.setText(String.valueOf(minumanSales.get(5)));
-        kopiHitamStock.setText(String.valueOf(minumanInventory.get(5)));
-        miloSales.setText(String.valueOf(minumanSales.get(6)));
-        miloStock.setText(String.valueOf(minumanInventory.get(6)));
-        spriteSales.setText(String.valueOf(minumanSales.get(7)));
-        spriteStock.setText(String.valueOf(minumanInventory.get(7)));
-        tehGelasSales.setText(String.valueOf(minumanSales.get(8)));
-        tehGelasStock.setText(String.valueOf(minumanInventory.get(8)));
-        tehPucukHarumSales.setText(String.valueOf(minumanSales.get(9)));
-        tehPucukHarumStock.setText(String.valueOf(minumanInventory.get(9)));
+        tehGelasSales.setText(String.valueOf(minumanSales.get(3)));
+        tehGelasStock.setText(String.valueOf(minumanInventory.get(3)));
+        fantaSales.setText(String.valueOf(minumanSales.get(4)));
+        fantaStock.setText(String.valueOf(minumanInventory.get(4)));
+        floridinaSales.setText(String.valueOf(minumanSales.get(5)));
+        floridinaStock.setText(String.valueOf(minumanInventory.get(5)));
+        fresteaSales.setText(String.valueOf(minumanSales.get(6)));
+        fresteaStock.setText(String.valueOf(minumanInventory.get(6)));
+        isoplusSales.setText(String.valueOf(minumanSales.get(7)));
+        isoplusStock.setText(String.valueOf(minumanInventory.get(7)));
+        kopiHitamSales.setText(String.valueOf(minumanSales.get(8)));
+        kopiHitamStock.setText(String.valueOf(minumanInventory.get(8)));
+        miloSales.setText(String.valueOf(minumanSales.get(9)));
+        miloStock.setText(String.valueOf(minumanInventory.get(9)));
+        spriteSales.setText(String.valueOf(minumanSales.get(10)));
+        spriteStock.setText(String.valueOf(minumanInventory.get(10)));
+        tehPucukHarumSales.setText(String.valueOf(minumanSales.get(11)));
+        tehPucukHarumStock.setText(String.valueOf(minumanInventory.get(11)));
 
 
     }
@@ -1020,30 +1093,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-//    ValueEventListener revenueCount = new ValueEventListener() {
-//        @Override
-//        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//            int sum = 0;
-//            if (dataSnapshot.exists()) {
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    Map<String, Object> map = (Map<String, Object>) snapshot.getValue();
-//                    Object subtotal = map.get("lineTotal");
-//                    int pValue = Integer.parseInt(String.valueOf(subtotal));
-//                    sum += pValue;
-//                    Log.i("Sum:", "" + sum);
-//                    nominalPendapatanTextView.setText("Rp." + sum);
-//                }
-//            } else {
-//                nominalPendapatanTextView.setText("Rp." + 0);
-//            }
-//        }
-//
-//        @Override
-//        public void onCancelled(@NonNull DatabaseError error) {
-//
-//        }
-//
-//    };
 
     public String getDate() {
         Long datetime = System.currentTimeMillis();
@@ -1077,20 +1126,41 @@ public class MainActivity extends AppCompatActivity {
             case "Kentang G":
                 makananSales.set(1, sum);
                 break;
-            case "NasBung A":
+            case "Mie Ayam":
                 makananSales.set(2, sum);
                 break;
-            case "NasBung B":
+            case "NasBung A":
                 makananSales.set(3, sum);
                 break;
-            case "Nasi Lauk":
+            case "NasBung B":
                 makananSales.set(4, sum);
                 break;
-            case "Popmie":
+            case "Nasi Ayam":
                 makananSales.set(5, sum);
                 break;
-            case "Siomay":
+            case "Nasi Pindang":
                 makananSales.set(6, sum);
+                break;
+            case "Nasi Telur":
+                makananSales.set(7, sum);
+                break;
+            case "Pisang G":
+                makananSales.set(8, sum);
+                break;
+            case "Popmie":
+                makananSales.set(9, sum);
+                break;
+            case "Sereal":
+                makananSales.set(10, sum);
+                break;
+            case "Tahu G":
+                makananSales.set(11, sum);
+                break;
+            case "Siomay":
+                makananSales.set(12, sum);
+                break;
+            case "Sosis Naget":
+                makananSales.set(13, sum);
                 break;
         }
 
@@ -1105,20 +1175,41 @@ public class MainActivity extends AppCompatActivity {
             case "Kentang G":
                 makananInventory.set(1, sum);
                 break;
-            case "NasBung A":
+            case "Mie Ayam":
                 makananInventory.set(2, sum);
                 break;
-            case "NasBung B":
+            case "NasBung A":
                 makananInventory.set(3, sum);
                 break;
-            case "Nasi Lauk":
+            case "NasBung B":
                 makananInventory.set(4, sum);
                 break;
-            case "Popmie":
+            case "Nasi Ayam":
                 makananInventory.set(5, sum);
                 break;
-            case "Siomay":
+            case "Nasi Pindang":
                 makananInventory.set(6, sum);
+                break;
+            case "Nasi Telur":
+                makananInventory.set(7, sum);
+                break;
+            case "Pisang G":
+                makananInventory.set(8, sum);
+                break;
+            case "Popmie":
+                makananInventory.set(9, sum);
+                break;
+            case "Sereal":
+                makananInventory.set(10, sum);
+                break;
+            case "Tahu G":
+                makananInventory.set(11, sum);
+                break;
+            case "Siomay":
+                makananInventory.set(12, sum);
+                break;
+            case "Sosis Naget":
+                makananInventory.set(13, sum);
                 break;
         }
     }
@@ -1134,26 +1225,31 @@ public class MainActivity extends AppCompatActivity {
             case "Es Kopi Durian":
                 minumanSales.set(2, sum);
                 break;
-            case "Fanta":
+            case "Es Teh":
                 minumanSales.set(3, sum);
                 break;
-            case "Frestea":
+            case "Fanta":
                 minumanSales.set(4, sum);
                 break;
-            case "Kopi Hitam":
+            case "Floridina":
                 minumanSales.set(5, sum);
-                break;
-            case "Milo":
+            case "Frestea":
                 minumanSales.set(6, sum);
                 break;
-            case "Sprite":
+            case "Isoplus":
                 minumanSales.set(7, sum);
                 break;
-            case "Teh Gelas":
+            case "Kopi Hitam":
                 minumanSales.set(8, sum);
                 break;
-            case "Teh Pucuk Harum":
+            case "Milo":
                 minumanSales.set(9, sum);
+                break;
+            case "Sprite":
+                minumanSales.set(10, sum);
+                break;
+            case "Teh Pucuk Harum":
+                minumanSales.set(11, sum);
                 break;
         }
     }
@@ -1169,26 +1265,30 @@ public class MainActivity extends AppCompatActivity {
             case "Es Kopi Durian":
                 minumanInventory.set(2, sum);
                 break;
-            case "Fanta":
+            case "Es Teh":
                 minumanInventory.set(3, sum);
-                break;
-            case "Frestea":
+            case "Fanta":
                 minumanInventory.set(4, sum);
                 break;
-            case "Kopi Hitam":
+            case "Floridina":
                 minumanInventory.set(5, sum);
-                break;
-            case "Milo":
+            case "Frestea":
                 minumanInventory.set(6, sum);
                 break;
-            case "Sprite":
+            case "Isoplus":
                 minumanInventory.set(7, sum);
                 break;
-            case "Teh Gelas":
+            case "Kopi Hitam":
                 minumanInventory.set(8, sum);
                 break;
-            case "Teh Pucuk Harum":
+            case "Milo":
                 minumanInventory.set(9, sum);
+                break;
+            case "Sprite":
+                minumanInventory.set(10, sum);
+                break;
+            case "Teh Pucuk Harum":
+                minumanInventory.set(11, sum);
                 break;
         }
     }
