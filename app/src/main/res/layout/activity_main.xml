@@ -11,7 +11,8 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="625dp">
+        android:layout_height="710dp">
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -2321,13 +2322,6 @@
 
             </ScrollView>
 
-            <!--    <TextView-->
-            <!--        android:layout_width="match_parent"-->
-            <!--        android:layout_height="match_parent"-->
-            <!--        android:id="@+id/TotalHariIni"-->
-            <!--        android:text="hello"-->
-            <!--        android:gravity="center" />-->
-
 
         </ScrollView>
 
@@ -2336,8 +2330,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:layout_below="@+id/refresh">
+        android:layout_below="@+id/refresh"
+        android:layout_alignEnd="@+id/refresh"
+        android:layout_marginBottom="0dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/timeframeBelt_container"
@@ -2347,13 +2342,12 @@
             android:layout_marginBottom="0dp"
             android:background="@drawable/layout_bg"
             android:orientation="vertical"
+            android:paddingLeft="20dp"
             android:paddingTop="0dp"
             android:paddingRight="20dp"
-            android:paddingLeft="20dp"
             android:paddingBottom="20dp"
             app:cardBackgroundColor="#FCFAFA"
             app:cardElevation="20dp">
-
 
 
             <FrameLayout
