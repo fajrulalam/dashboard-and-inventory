@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         kentangSales = findViewById(R.id.sales_2);
         kentangStock = findViewById(R.id.stock_2);
         mieAyamSales = findViewById(R.id.sales_3);
-        mieAyamStock = findViewById(R.id.stock_4);
+        mieAyamStock = findViewById(R.id.stock_3);
         nasbungASales = findViewById(R.id.sales_4);
         nasbungAStock = findViewById(R.id.stock_4);
         nasbungBSales = findViewById(R.id.sales_5);
@@ -235,57 +235,17 @@ public class MainActivity extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                for (int i = 0; i<minumanList.size(); i++) {
-                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMinumanInventory(item_string, sum);
-                            }
-                        }
-
-                    });
-                }
-
-                for (int i = 0; i<makananList.size(); i++) {
-                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                    int sum = 0;
-                    for (DocumentSnapshot snapshot : snapshotList) {
-                        Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                        Object subtotal = map.get("quantity");
-                        Object item = map.get("itemID");
-                        String item_string = item.toString();
-                        int pValue = Integer.parseInt(String.valueOf(subtotal));
-                        sum += pValue;
-                        doSwitchMakananInventory(item_string, sum);
-                    }
-                }
-            });
-
-                }
-
+                changeValue();
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         Log.i("Sales", makananSales.toString());
                         Log.i("Inventory", makananInventory.toString());
-                        changeValue();
                         refreshLayout.setRefreshing(false);
 
                     }
-                }, 1500);
+                }, 1000);
 
 
 
@@ -368,7 +328,8 @@ public class MainActivity extends AppCompatActivity {
 //        minumanSales.clear();
 
         view.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.buttonSelected)));
-//        resetData();
+//        sterilizeValue();
+        resetData();
 //        makananSales.clear();
 //        makananInventory.clear();
 //        minumanInventory.clear();
@@ -404,6 +365,22 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
+                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                            int sum = 0;
+                            for (DocumentSnapshot snapshot : snapshotList) {
+                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                                Object subtotal = map.get("quantity");
+                                Object item = map.get("itemID");
+                                String item_string = item.toString();
+                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+                                sum += pValue;
+                                doSwitchMakananInventory(item_string, sum);
+                            }
+                        }
+                    });
 
 
                 }
@@ -430,6 +407,26 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     });
+
+                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                            int sum = 0;
+                            for (DocumentSnapshot snapshot : snapshotList) {
+                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                                Object subtotal = map.get("quantity");
+                                Object item = map.get("itemID");
+                                String item_string = item.toString();
+                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+                                sum += pValue;
+                                doSwitchMinumanInventory(item_string, sum);
+                            }
+                        }
+
+                    });
+
+
 
 
                 }
@@ -463,6 +460,23 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
+                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                            int sum = 0;
+                            for (DocumentSnapshot snapshot : snapshotList) {
+                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                                Object subtotal = map.get("quantity");
+                                Object item = map.get("itemID");
+                                String item_string = item.toString();
+                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+                                sum += pValue;
+                                doSwitchMakananInventory(item_string, sum);
+                            }
+                        }
+                    });
+
 
 
 
@@ -489,6 +503,24 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         }
+                    });
+
+                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                            int sum = 0;
+                            for (DocumentSnapshot snapshot : snapshotList) {
+                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                                Object subtotal = map.get("quantity");
+                                Object item = map.get("itemID");
+                                String item_string = item.toString();
+                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+                                sum += pValue;
+                                doSwitchMinumanInventory(item_string, sum);
+                            }
+                        }
+
                     });
 
 
@@ -522,6 +554,23 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
+                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                            int sum = 0;
+                            for (DocumentSnapshot snapshot : snapshotList) {
+                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                                Object subtotal = map.get("quantity");
+                                Object item = map.get("itemID");
+                                String item_string = item.toString();
+                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+                                sum += pValue;
+                                doSwitchMakananInventory(item_string, sum);
+                            }
+                        }
+                    });
+
 
 
                 }
@@ -549,6 +598,24 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
+                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                            int sum = 0;
+                            for (DocumentSnapshot snapshot : snapshotList) {
+                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                                Object subtotal = map.get("quantity");
+                                Object item = map.get("itemID");
+                                String item_string = item.toString();
+                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+                                sum += pValue;
+                                doSwitchMinumanInventory(item_string, sum);
+                            }
+                        }
+
+                    });
+
                 }
                 break;
             case "alltime":
@@ -574,6 +641,23 @@ public class MainActivity extends AppCompatActivity {
                                 sum += pValue;
                                 Log.i(TAG, "onSuccess: " + item_string + " " + sum);
                                 doSwitchMakananSales(item_string, sum);
+                            }
+                        }
+                    });
+
+                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                            int sum = 0;
+                            for (DocumentSnapshot snapshot : snapshotList) {
+                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                                Object subtotal = map.get("quantity");
+                                Object item = map.get("itemID");
+                                String item_string = item.toString();
+                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+                                sum += pValue;
+                                doSwitchMakananInventory(item_string, sum);
                             }
                         }
                     });
@@ -606,6 +690,24 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
+                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+                            int sum = 0;
+                            for (DocumentSnapshot snapshot : snapshotList) {
+                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+                                Object subtotal = map.get("quantity");
+                                Object item = map.get("itemID");
+                                String item_string = item.toString();
+                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+                                sum += pValue;
+                                doSwitchMinumanInventory(item_string, sum);
+                            }
+                        }
+
+                    });
+
 
                 }
 
@@ -622,10 +724,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Inventory", makananInventory.toString());
                 changeValue();
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Query is done... Swipe to Refresh", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Query is done... Swipe up to Refresh", Toast.LENGTH_SHORT).show();
 
             }
-        }, 500);
+        }, 1500);
 
 
 
@@ -906,11 +1008,68 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    //Change Table Sales and Stock Value
-
-    public void changeValue() {
+    //Sterilize Table Sales and Stock Value
+    public void sterilizeValue() {
 
         //Makanan
+        baksoSales.setText("N/A");
+        baksoStock.setText("N/A");
+        kentangSales.setText("N/A");
+        kentangStock.setText("N/A");
+        mieAyamSales.setText("N/A");
+        mieAyamStock.setText("N/A");
+        nasbungASales.setText("N/A");
+        nasbungAStock.setText("N/A");
+        nasbungBSales.setText("N/A");
+        nasbungBStock.setText("N/A");
+        nasiAyamSales.setText("N/A");
+        nasiAyamStock.setText("N/A");
+        nasiPindangSales.setText("N/A");
+        nasiPindangStock.setText("N/A");
+        nasiTelurSales.setText("N/A");
+        nasiTelurStock.setText("N/A");
+        pisangGorengSales.setText("N/A");
+        pisangGorengStock.setText("N/A");
+        popmieSales.setText("N/A");
+        popmieStock.setText("N/A");
+        serealSales.setText("N/A");
+        serealStock.setText("N/A");
+        tahuGorengSales.setText("N/A");
+        tahuGorengStock.setText("N/A");
+        siomaySales.setText("N/A");
+        siomayStock.setText("N/A");
+        sosisNagetSales.setText("N/A");
+        sosisNagetStock.setText("N/A");
+
+        //Minuman
+        aquaSales.setText("N/A");
+        aquaStock.setText("N/A");
+        cocaColaSales.setText("N/A");
+        cocaColaStock.setText("N/A");
+        esKopiDurianSales.setText("N/A");
+        esKopiDurianStock.setText("N/A");
+        tehGelasSales.setText("N/A");
+        tehGelasStock.setText("N/A");
+        fantaSales.setText("N/A");
+        fantaStock.setText("N/A");
+        floridinaSales.setText("N/A");
+        floridinaStock.setText("N/A");
+        fresteaSales.setText("N/A");
+        fresteaStock.setText("N/A");
+        isoplusSales.setText("N/A");
+        isoplusStock.setText("N/A");
+        kopiHitamSales.setText("N/A");
+        kopiHitamStock.setText("N/A");
+        miloSales.setText("N/A");
+        miloStock.setText("N/A");
+        spriteSales.setText("N/A");
+        spriteStock.setText("N/A");
+        tehPucukHarumSales.setText("N/A");
+        tehPucukHarumStock.setText("N/A");
+    }
+
+            public void changeValue() {
+                //Makanan
         baksoSales.setText(String.valueOf(makananSales.get(0)));
         baksoStock.setText(String.valueOf(makananInventory.get(0)));
         kentangSales.setText(String.valueOf(makananSales.get(1)));
