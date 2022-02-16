@@ -141,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
+
 
         fs = FirebaseFirestore.getInstance();
 
@@ -159,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
         monthButton = findViewById(R.id.buttonMonthly);
         yearButton = findViewById(R.id.buttonYearly);
         alltimeButton = findViewById(R.id.buttonAlltime);
+        ProgressDialog progressDialog;
 
         //Define Makanan Table
         baksoSales = findViewById(R.id.sales_1);
@@ -256,59 +259,61 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        countRevenue(getDate());
-        String date_makanan = "";
-        for (int i = 0; i < makananList.size(); i++) {
-            date_makanan = getDate() + "_" + makananList.get(i);
 
 
-            fs.collection("TransactionDetail").whereEqualTo("day_itemID", date_makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                    int sum = 0;
-                    for (DocumentSnapshot snapshot : snapshotList) {
-                        Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                        Object subtotal = map.get("quantity");
-                        Object item = map.get("itemID");
-                        String item_string = item.toString();
-                        int pValue = Integer.parseInt(String.valueOf(subtotal));
-                        sum += pValue;
-                        Log.i(TAG, "onSuccess: " + item_string + " " + sum);
-                        doSwitchMakananSales(item_string, sum);
-                    }
-                }
-            });
-
-
-
-
-        }
-        String date_minuman = "";
-        for (int i = 0; i < minumanList.size(); i++) {
-            date_minuman = getDate() + "_" + minumanList.get(i);
-
-
-
-            fs.collection("TransactionDetail").whereEqualTo("day_itemID", date_minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                    int sum = 0;
-                    for (DocumentSnapshot snapshot : snapshotList) {
-                        Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                        Object item = map.get("itemID");
-                        Object subtotal = map.get("quantity");
-                        String item_string = item.toString();
-                        int pValue = Integer.parseInt(String.valueOf(subtotal));
-                        sum += pValue;
-                        doSwitchMinumanSales(item_string, sum);
-
-                    }
-                }
-            });
-
-        }
+//        countRevenue(getDate());
+//        String date_makanan = "";
+//        for (int i = 0; i < makananList.size(); i++) {
+//            date_makanan = getDate() + "_" + makananList.get(i);
+//
+//
+//            fs.collection("TransactionDetail").whereEqualTo("day_itemID", date_makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                @Override
+//                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                    int sum = 0;
+//                    for (DocumentSnapshot snapshot : snapshotList) {
+//                        Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                        Object subtotal = map.get("quantity");
+//                        Object item = map.get("itemID");
+//                        String item_string = item.toString();
+//                        int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                        sum += pValue;
+//                        Log.i(TAG, "onSuccess: " + item_string + " " + sum);
+//                        doSwitchMakananSales(item_string, sum);
+//                    }
+//                }
+//            });
+//
+//
+//
+//
+//        }
+//        String date_minuman = "";
+//        for (int i = 0; i < minumanList.size(); i++) {
+//            date_minuman = getDate() + "_" + minumanList.get(i);
+//
+//
+//
+//            fs.collection("TransactionDetail").whereEqualTo("day_itemID", date_minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                @Override
+//                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                    List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                    int sum = 0;
+//                    for (DocumentSnapshot snapshot : snapshotList) {
+//                        Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                        Object item = map.get("itemID");
+//                        Object subtotal = map.get("quantity");
+//                        String item_string = item.toString();
+//                        int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                        sum += pValue;
+//                        doSwitchMinumanSales(item_string, sum);
+//
+//                    }
+//                }
+//            });
+//
+//        }
 
 
 
@@ -336,398 +341,420 @@ public class MainActivity extends AppCompatActivity {
 //        minumanSales.clear();
 
 
+
+
+
         switch (view.getTag().toString()) {
             case "day":
-                Log.i("Timeframe:", "Day");
-//                dayButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.buttonSelected)));
+                querySales("DailyTransaction", getDate());
                 pendaptanKapanTextView.setText("Pendapatan Hari ini");
-                countRevenue(getDate());
-                String date_makanan = "";
-                for (int i = 0; i < makananList.size(); i++) {
-                    date_makanan = getDate() + "_" + makananList.get(i);
-
-
-                    fs.collection("TransactionDetail").whereEqualTo("day_itemID", date_makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                Log.i(TAG, "onSuccess: " + item_string + " " + sum);
-                                doSwitchMakananSales(item_string, sum);
-                            }
-                        }
-                    });
-
-                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMakananInventory(item_string, sum);
-                            }
-                        }
-                    });
-
-
-                }
-                String date_minuman = "";
-                for (int i = 0; i < minumanList.size(); i++) {
-                    date_minuman = getDate() + "_" + minumanList.get(i);
-
-
-
-                    fs.collection("TransactionDetail").whereEqualTo("day_itemID", date_minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object item = map.get("itemID");
-                                Object subtotal = map.get("quantity");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMinumanSales(item_string, sum);
-
-                            }
-                        }
-                    });
-
-                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMinumanInventory(item_string, sum);
-                            }
-                        }
-
-                    });
-
-
-
-
-                }
-
                 break;
-
             case "month":
-//                monthButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.buttonSelected)));
+                querySales("MonthlyTransaction", getMonth());
                 pendaptanKapanTextView.setText("Pendapatan Bulan ini");
-                countRevenue(getMonth());
-               String month_makanan = "";
-                for (int i = 0; i < makananList.size(); i++) {
-                    month_makanan = getMonth() + "_" + makananList.get(i);
-
-
-                    fs.collection("TransactionDetail").whereEqualTo("month_itemID", month_makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                Log.i(TAG, "onSuccess: " + item_string + " " + sum);
-                                doSwitchMakananSales(item_string, sum);
-                            }
-                        }
-                    });
-
-                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMakananInventory(item_string, sum);
-                            }
-                        }
-                    });
-
-
-
-
-                }
-                String month_minuman = "";
-                for (int i = 0; i < minumanList.size(); i++) {
-                    month_minuman = getMonth() + "_" + minumanList.get(i);
-
-
-
-                    fs.collection("TransactionDetail").whereEqualTo("month_itemID", month_minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object item = map.get("itemID");
-                                Object subtotal = map.get("quantity");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMinumanSales(item_string, sum);
-
-                            }
-                        }
-                    });
-
-                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMinumanInventory(item_string, sum);
-                            }
-                        }
-
-                    });
-
-
-                }
-
                 break;
             case "year":
-                pendaptanKapanTextView.setText("Pendapatan Tahun ini");
-                countRevenue(getYear());
-
-                String year_makanan = "";
-                for (int i = 0; i < makananList.size(); i++) {
-                    year_makanan = getYear() + "_" + makananList.get(i);
-
-
-                    fs.collection("TransactionDetail").whereEqualTo("year_itemID", year_makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                Log.i(TAG, "onSuccess: " + item_string + " " + sum);
-                                doSwitchMakananSales(item_string, sum);
-                            }
-                        }
-                    });
-
-                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMakananInventory(item_string, sum);
-                            }
-                        }
-                    });
-
-
-
-                }
-                String year_minuman = "";
-                for (int i = 0; i < minumanList.size(); i++) {
-                    year_minuman = getYear() + "_" + minumanList.get(i);
-
-
-
-                    fs.collection("TransactionDetail").whereEqualTo("year_itemID", year_minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object item = map.get("itemID");
-                                Object subtotal = map.get("quantity");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMinumanSales(item_string, sum);
-
-                            }
-                        }
-                    });
-
-                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMinumanInventory(item_string, sum);
-                            }
-                        }
-
-                    });
-
-                }
+                querySales("YearlyTransaction", getYear());
+                pendaptanKapanTextView.setText("Pendapatan Tahun ini ini");
                 break;
             case "alltime":
+                querySales("YearlyTransaction", getYear());
                 pendaptanKapanTextView.setText("Pendapatan All Time");
-                countRevenue("all");
-
-                String makanan = "";
-                for (int i = 0; i < makananList.size(); i++) {
-                    makanan = makananList.get(i);
-
-
-                    fs.collection("TransactionDetail").whereEqualTo("itemID", makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                Log.i(TAG, "onSuccess: " + item_string + " " + sum);
-                                doSwitchMakananSales(item_string, sum);
-                            }
-                        }
-                    });
-
-                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMakananInventory(item_string, sum);
-                            }
-                        }
-                    });
-
-
-
-
-                }
-                String minuman = "";
-                for (int i = 0; i < minumanList.size(); i++) {
-                    minuman =  minumanList.get(i);
-
-
-
-                    fs.collection("TransactionDetail").whereEqualTo("itemID", minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object item = map.get("itemID");
-                                Object subtotal = map.get("quantity");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMinumanSales(item_string, sum);
-
-                            }
-                        }
-                    });
-
-                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
-                            int sum = 0;
-                            for (DocumentSnapshot snapshot : snapshotList) {
-                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
-                                Object subtotal = map.get("quantity");
-                                Object item = map.get("itemID");
-                                String item_string = item.toString();
-                                int pValue = Integer.parseInt(String.valueOf(subtotal));
-                                sum += pValue;
-                                doSwitchMinumanInventory(item_string, sum);
-                            }
-                        }
-
-                    });
-
-
-                }
-
                 break;
+
         }
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Fetching Data...");
-        progressDialog.show();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.i("Sales", makananSales.toString());
-                Log.i("Inventory", makananInventory.toString());
-                changeValue();
-                progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "Query is done... Swipe up to Refresh", Toast.LENGTH_SHORT).show();
-
-            }
-        }, 1500);
+//        switch (view.getTag().toString()) {
+//            case "day":
+//                Log.i("Timeframe:", "Day");
+////                dayButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.buttonSelected)));
+//                pendaptanKapanTextView.setText("Pendapatan Hari ini");
+//                countRevenue(getDate());
+//                String date_makanan = "";
+//                for (int i = 0; i < makananList.size(); i++) {
+//                    date_makanan = getDate() + "_" + makananList.get(i);
+//
+//
+//                    fs.collection("TransactionDetail").whereEqualTo("day_itemID", date_makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                Log.i(TAG, "onSuccess: " + item_string + " " + sum);
+//                                doSwitchMakananSales(item_string, sum);
+//                            }
+//                        }
+//                    });
+//
+//                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMakananInventory(item_string, sum);
+//                            }
+//                        }
+//                    });
+//
+//
+//                }
+//                String date_minuman = "";
+//                for (int i = 0; i < minumanList.size(); i++) {
+//                    date_minuman = getDate() + "_" + minumanList.get(i);
+//
+//
+//
+//                    fs.collection("TransactionDetail").whereEqualTo("day_itemID", date_minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object item = map.get("itemID");
+//                                Object subtotal = map.get("quantity");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMinumanSales(item_string, sum);
+//
+//                            }
+//                        }
+//                    });
+//
+//                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMinumanInventory(item_string, sum);
+//                            }
+//                        }
+//
+//                    });
+//
+//
+//
+//
+//                }
+//
+//                break;
+//
+//            case "month":
+////                monthButton.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.buttonSelected)));
+//                pendaptanKapanTextView.setText("Pendapatan Bulan ini");
+//                countRevenue(getMonth());
+//               String month_makanan = "";
+//                for (int i = 0; i < makananList.size(); i++) {
+//                    month_makanan = getMonth() + "_" + makananList.get(i);
+//
+//
+//                    fs.collection("TransactionDetail").whereEqualTo("month_itemID", month_makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                Log.i(TAG, "onSuccess: " + item_string + " " + sum);
+//                                doSwitchMakananSales(item_string, sum);
+//                            }
+//                        }
+//                    });
+//
+//                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMakananInventory(item_string, sum);
+//                            }
+//                        }
+//                    });
+//
+//
+//
+//
+//                }
+//                String month_minuman = "";
+//                for (int i = 0; i < minumanList.size(); i++) {
+//                    month_minuman = getMonth() + "_" + minumanList.get(i);
+//
+//
+//
+//                    fs.collection("TransactionDetail").whereEqualTo("month_itemID", month_minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object item = map.get("itemID");
+//                                Object subtotal = map.get("quantity");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMinumanSales(item_string, sum);
+//
+//                            }
+//                        }
+//                    });
+//
+//                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMinumanInventory(item_string, sum);
+//                            }
+//                        }
+//
+//                    });
+//
+//
+//                }
+//
+//                break;
+//            case "year":
+//                pendaptanKapanTextView.setText("Pendapatan Tahun ini");
+//                countRevenue(getYear());
+//
+//                String year_makanan = "";
+//                for (int i = 0; i < makananList.size(); i++) {
+//                    year_makanan = getYear() + "_" + makananList.get(i);
+//
+//
+//                    fs.collection("TransactionDetail").whereEqualTo("year_itemID", year_makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                Log.i(TAG, "onSuccess: " + item_string + " " + sum);
+//                                doSwitchMakananSales(item_string, sum);
+//                            }
+//                        }
+//                    });
+//
+//                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMakananInventory(item_string, sum);
+//                            }
+//                        }
+//                    });
+//
+//
+//
+//                }
+//                String year_minuman = "";
+//                for (int i = 0; i < minumanList.size(); i++) {
+//                    year_minuman = getYear() + "_" + minumanList.get(i);
+//
+//
+//
+//                    fs.collection("TransactionDetail").whereEqualTo("year_itemID", year_minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object item = map.get("itemID");
+//                                Object subtotal = map.get("quantity");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMinumanSales(item_string, sum);
+//
+//                            }
+//                        }
+//                    });
+//
+//                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMinumanInventory(item_string, sum);
+//                            }
+//                        }
+//
+//                    });
+//
+//                }
+//                break;
+//            case "alltime":
+//                pendaptanKapanTextView.setText("Pendapatan All Time");
+//                countRevenue("all");
+//
+//                String makanan = "";
+//                for (int i = 0; i < makananList.size(); i++) {
+//                    makanan = makananList.get(i);
+//
+//
+//                    fs.collection("TransactionDetail").whereEqualTo("itemID", makanan).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                Log.i(TAG, "onSuccess: " + item_string + " " + sum);
+//                                doSwitchMakananSales(item_string, sum);
+//                            }
+//                        }
+//                    });
+//
+//                    fs.collection("Stock").whereEqualTo("itemID", makananList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMakananInventory(item_string, sum);
+//                            }
+//                        }
+//                    });
+//
+//
+//
+//
+//                }
+//                String minuman = "";
+//                for (int i = 0; i < minumanList.size(); i++) {
+//                    minuman =  minumanList.get(i);
+//
+//
+//
+//                    fs.collection("TransactionDetail").whereEqualTo("itemID", minuman).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object item = map.get("itemID");
+//                                Object subtotal = map.get("quantity");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMinumanSales(item_string, sum);
+//
+//                            }
+//                        }
+//                    });
+//
+//                    fs.collection("Stock").whereEqualTo("itemID", minumanList.get(i)).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                            List<DocumentSnapshot> snapshotList = queryDocumentSnapshots.getDocuments();
+//                            int sum = 0;
+//                            for (DocumentSnapshot snapshot : snapshotList) {
+//                                Map<String, Object> map = (Map<String, Object>) snapshot.getData();
+//                                Object subtotal = map.get("quantity");
+//                                Object item = map.get("itemID");
+//                                String item_string = item.toString();
+//                                int pValue = Integer.parseInt(String.valueOf(subtotal));
+//                                sum += pValue;
+//                                doSwitchMinumanInventory(item_string, sum);
+//                            }
+//                        }
+//
+//                    });
+//
+//
+//                }
+//
+//                break;
+//        }
+//        ProgressDialog progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage("Fetching Data...");
+//        progressDialog.show();
+//
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.i("Sales", makananSales.toString());
+//                Log.i("Inventory", makananInventory.toString());
+//                changeValue();
+//                progressDialog.dismiss();
+//                Toast.makeText(getApplicationContext(), "Query is done... Swipe up to Refresh", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        }, 1500);
 
 
 
@@ -773,6 +800,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     public void InsertMenu() {
         //Makanan
         makananList.add("Bakso"); //0
@@ -811,6 +839,97 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    public void querySales(String collection, String document) {
+        fs.collection(collection).document(document).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Map<String, Object> map = (Map<String, Object>) documentSnapshot.getData();
+                Object totalRev = map.get("total");
+                String item_string = totalRev.toString();
+                nominalPendapatanTextView.setText(item_string);
+                Object sales1_obj = map.get("Bakso");
+                String sales1_str = sales1_obj.toString();
+                baksoSales.setText(sales1_str);
+                Object sales2_obj = map.get("Kentang G");
+                String sales2_str = sales2_obj.toString();
+                kentangSales.setText(sales2_str);
+                Object sales3_obj = map.get("Mie Ayam");
+                String sales3_str = sales3_obj.toString();
+                mieAyamSales.setText(sales3_str);
+                Object sales4_obj = map.get("NasBung A");
+                String sales4_str = sales4_obj.toString();
+                nasbungASales.setText(sales4_str);
+                Object sales5_obj = map.get("NasBung B");
+                String sales5_str = sales5_obj.toString();
+                nasbungBSales.setText(sales5_str); //5
+                Object sales6_obj = map.get("Nasi Ayam");
+                String sales6_str = sales6_obj.toString();
+                nasiAyamSales.setText(sales6_str);
+                Object sales7_obj = map.get("Nasi Pindang");
+                String sales7_str = sales7_obj.toString();
+                nasiPindangSales.setText(sales7_str);
+                Object sales8_obj = map.get("Nasi Telur");
+                String sales8_str = sales8_obj.toString();
+                nasiTelurSales.setText(sales8_str);
+                Object sales9_obj = map.get("Pisang G");
+                String sales9_str = sales9_obj.toString();
+                pisangGorengSales.setText(sales9_str);
+                Object sales10_obj = map.get("Popmie");
+                String sales10_str = sales10_obj.toString();
+                popmieSales.setText(sales10_str); //10
+                Object sales11_obj = map.get("Sereal");
+                String sales11_str = sales11_obj.toString();
+                serealSales.setText(sales11_str);
+                Object sales12_obj = map.get("Tahu G");
+                String sales12_str = sales12_obj.toString();
+                tahuGorengSales.setText(sales12_str);
+                Object sales13_obj = map.get("Siomay");
+                String sales13_str = sales13_obj.toString();
+                siomaySales.setText(sales13_str);
+                Object sales14_obj = map.get("Sosis Naget");
+                String sales14_str = sales14_obj.toString();
+                sosisNagetSales.setText(sales14_str);
+                Object sales15_obj = map.get("Aqua 600ml");
+                String sales15_str = sales15_obj.toString();
+                aquaSales.setText(sales15_str); //15
+                Object sales16_obj = map.get("Coca-Cola");
+                String sales16_str = sales16_obj.toString();
+                cocaColaSales.setText(sales16_str);
+                Object sales17_obj = map.get("Es Kopi Durian");
+                String sales17_str = sales17_obj.toString();
+                esKopiDurianSales.setText(sales17_str);
+                Object sales18_obj = map.get("Es Teh");
+                String sales18_str = sales18_obj.toString();
+                tehGelasSales.setText(sales18_str);
+                Object sales19_obj = map.get("Fanta");
+                String sales19_str = sales19_obj.toString();
+                fantaSales.setText(sales19_str);
+                Object sales20_obj = map.get("Floridina");
+                String sales20_str = sales20_obj.toString();
+                floridinaSales.setText(sales20_str); //20
+                Object sales21_obj = map.get("Frestea");
+                String sales21_str = sales21_obj.toString();
+                fresteaSales.setText(sales21_str);
+                Object sales22_obj = map.get("Isoplus");
+                String sales22_str = sales22_obj.toString();
+                isoplusSales.setText(sales22_str);
+                Object sales23_obj = map.get("Kopi Hitam");
+                String sales23_str = sales23_obj.toString();
+                kopiHitamSales.setText(sales23_str);
+                Object sales24_obj = map.get("Milo");
+                String sales24_str = sales24_obj.toString();
+                miloSales.setText(sales24_str);
+                Object sales25_obj = map.get("Sprite");
+                String sales25_str = sales25_obj.toString();
+                spriteSales.setText(sales25_str);
+                Object sales26_obj = map.get("Teh Pucuk Harum");
+                String sales26_str = sales26_obj.toString();
+                spriteSales.setText(sales26_str);
+            }
+    });
+}
+
 
     //Reset the Sales and Inventory
     public void insertZeros(){
