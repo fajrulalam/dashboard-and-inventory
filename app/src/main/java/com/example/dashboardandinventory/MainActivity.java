@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements stockDialog.Updat
     FirebaseFirestore fs;
     SwipeRefreshLayout refreshLayout;
 
+    String menu;
+
     ArrayList<String> makananList;
     ArrayList<String> minumanList;
     ArrayList<Integer> makananSales;
@@ -131,11 +133,7 @@ public class MainActivity extends AppCompatActivity implements stockDialog.Updat
     TextView isoplusSales;
     TextView isoplusStock;
 
-    public void stockUpdate(View view){
 
-
-
-    }
 
 
     @Override
@@ -221,11 +219,11 @@ public class MainActivity extends AppCompatActivity implements stockDialog.Updat
         tehPucukHarumStock = findViewById(R.id.stock2_12);
 
 
-        reff = FirebaseDatabase.getInstance("https://point-of-sales-app-25e2b-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("TransacationDetail");
-        reffStock = FirebaseDatabase.getInstance("https://point-of-sales-app-25e2b-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("StockCount");
-        revToday = reff.orderByChild("timeStamp").startAt(getDate()).endAt(getDate() + "\uf8ff");
-        revMonth = reff.orderByChild("timeStamp").startAt(getMonth()).endAt(getMonth() + "\uf8ff");
-        revYear = reff.orderByChild("timeStamp").startAt(getYear()).endAt(getYear() + "\uf8ff");
+//        reff = FirebaseDatabase.getInstance("https://point-of-sales-app-25e2b-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("TransacationDetail");
+//        reffStock = FirebaseDatabase.getInstance("https://point-of-sales-app-25e2b-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("StockCount");
+//        revToday = reff.orderByChild("timeStamp").startAt(getDate()).endAt(getDate() + "\uf8ff");
+//        revMonth = reff.orderByChild("timeStamp").startAt(getMonth()).endAt(getMonth() + "\uf8ff");
+//        revYear = reff.orderByChild("timeStamp").startAt(getYear()).endAt(getYear() + "\uf8ff");
 
 
 
@@ -236,21 +234,37 @@ public class MainActivity extends AppCompatActivity implements stockDialog.Updat
         resetData();
         insertZeros();
 
+        menu = "day";
+
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                changeValue();
                 updateStock();
 
+                switch (menu) {
+                    case "day":
+                        querySales("DailyTransaction", getDate());
+                        break;
+                    case "month":
+                        querySales("MonthlyTransaction", getMonth());
+                        break;
+                    case "year":
+                    case "alltime":
+                        querySales("YearlyTransaction", getYear());
+                        break;
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                }
+                refreshLayout.setRefreshing(false);
 
-                        refreshLayout.setRefreshing(false);
 
-                    }
-                }, 1000);
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//
+//
+//                    }
+//                }, 100);
 
 
 
@@ -261,6 +275,7 @@ public class MainActivity extends AppCompatActivity implements stockDialog.Updat
         });
 
         updateStock();
+        querySales("DailyTransaction", getDate());
 
 
 
@@ -294,18 +309,22 @@ public class MainActivity extends AppCompatActivity implements stockDialog.Updat
 
         switch (view.getTag().toString()) {
             case "day":
+                menu = "day";
                 querySales("DailyTransaction", getDate());
                 pendaptanKapanTextView.setText("Pendapatan Hari ini");
                 break;
             case "month":
+                menu = "month";
                 querySales("MonthlyTransaction", getMonth());
                 pendaptanKapanTextView.setText("Pendapatan Bulan ini");
                 break;
             case "year":
+                menu = "year";
                 querySales("YearlyTransaction", getYear());
-                pendaptanKapanTextView.setText("Pendapatan Tahun ini ini");
+                pendaptanKapanTextView.setText("Pendapatan Tahun ini");
                 break;
             case "alltime":
+                menu = "alltime";
                 querySales("YearlyTransaction", getYear());
                 pendaptanKapanTextView.setText("Pendapatan All Time");
                 break;
@@ -468,8 +487,13 @@ public class MainActivity extends AppCompatActivity implements stockDialog.Updat
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Map<String, Object> map = (Map<String, Object>) documentSnapshot.getData();
                 Object totalRev = map.get("total");
-                String item_string = totalRev.toString();
-                nominalPendapatanTextView.setText(item_string);
+                Log.i("Total", totalRev.toString());
+                String totalRev_str = totalRev.toString();
+                int totalRev_int = Integer.parseInt(totalRev_str);
+                totalRev_str = String.format("%,d", totalRev_int).replace(',', '.');
+                nominalPendapatanTextView.setText("Rp "+totalRev_str);
+
+
                 Object sales1_obj = map.get("Bakso");
                 String sales1_str = sales1_obj.toString();
                 baksoSales.setText(sales1_str);
@@ -728,41 +752,23 @@ public class MainActivity extends AppCompatActivity implements stockDialog.Updat
 
     public void makananStockClick(View view){
         String item = makananList.get(Integer.parseInt(view.getTag().toString()));
-        fs.collection("Stock").document("Stocks").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Map<String, Object> map = (Map<String, Object>) documentSnapshot.getData();
-                Object currentStock_obj = map.get(item);
-                String currentStock = currentStock_obj.toString();
-                Bundle bundle = new Bundle();
-                bundle.putString("item", item);
-                bundle.putInt("currentStock", Integer.parseInt(currentStock) );
-                stockDialog stockDialog = new stockDialog();
-                stockDialog.setArguments(bundle);
-                stockDialog.show(getSupportFragmentManager(), "test");
+        Bundle bundle = new Bundle();
+        bundle.putString("item", item);
+        stockDialog stockDialog = new stockDialog();
+        stockDialog.setArguments(bundle);
+        stockDialog.show(getSupportFragmentManager(), "test");
 
-            }
-        });
 
 
     }
 
     public void minumanStockClick(View view) {
         String item = minumanList.get(Integer.parseInt(view.getTag().toString()));
-        fs.collection("Stock").document("Stocks").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Map<String, Object> map = (Map<String, Object>) documentSnapshot.getData();
-                Object currentStock_obj = map.get(item);
-                String currentStock = currentStock_obj.toString();
-                Bundle bundle = new Bundle();
-                bundle.putString("item", item);
-                bundle.putInt("currentStock", Integer.parseInt(currentStock) );
-                stockDialog stockDialog = new stockDialog();
-                stockDialog.setArguments(bundle);
-                stockDialog.show(getSupportFragmentManager(), "test");
-            }
-        });
+        Bundle bundle = new Bundle();
+        bundle.putString("item", item);
+        stockDialog stockDialog = new stockDialog();
+        stockDialog.setArguments(bundle);
+        stockDialog.show(getSupportFragmentManager(), "test");
 
     }
 
