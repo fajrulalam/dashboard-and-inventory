@@ -462,7 +462,7 @@ public class MainActivity extends AppCompatActivity implements stockDialog.Updat
 
         //Minuman
         minumanList.add("Aqua 600ml"); //0
-        minumanList.add("Coca Cola");
+        minumanList.add("Coca-Cola");
         minumanList.add("Es Kopi Durian");
         minumanList.add("Es Teh");
         minumanList.add("Fanta");

@@ -31,7 +31,7 @@
         android:layout_below="@+id/judul"
         android:layout_marginTop="15dp"
         android:gravity="center"
-        android:text="(Current Stock : )" />
+        android:text="Current Stock :   " />
     <RelativeLayout
         android:id="@+id/pesan"
         android:layout_width="match_parent"
